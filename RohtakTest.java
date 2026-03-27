@@ -76,7 +76,7 @@ package pondsdataupdate;
 	        try (Playwright playwright = Playwright.create()) {
 
 	            Browser browser = playwright.chromium().launch(
-	                    new BrowserType.LaunchOptions().setHeadless(false)
+	                    new BrowserType.LaunchOptions().setHeadless(true)
 	            );
 
 	            Page page = browser.newPage();
