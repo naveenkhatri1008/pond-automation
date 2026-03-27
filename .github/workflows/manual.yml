@@ -1,0 +1,31 @@
+name: Pond Automation
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+
+      - name: Install Maven
+        run: sudo apt-get update && sudo apt-get install -y maven
+
+      - name: Install Playwright
+        run: |
+          npm install -g playwright
+          npx playwright install --with-deps
+
+      - name: Build Project
+        run: mvn clean install
+
+      - name: Run Automation
+        run: mvn exec:java -Dexec.mainClass="pondsdataupdate.PondAutomation"
